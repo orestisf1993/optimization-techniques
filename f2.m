@@ -1,8 +1,10 @@
 function [ y ] = f2( x )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%f2 The second function of the assigment.
 
-y = (x-2).^2 + sin(x);
+global calcs;
+calcs = calcs + 1;
+
+y = (x-2)^2 + sin(x);
 
 end
 
