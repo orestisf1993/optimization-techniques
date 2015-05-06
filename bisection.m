@@ -1,4 +1,4 @@
-function [c, calcs] = bisection( f, a, b, e, l )
+function [c, k] = bisection( f, a, b, e, l )
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -20,7 +20,7 @@ b = [b zeros(1, 15)];
 
 iter = 0;
 
-while b(k) - a(k) >=1 l
+while b(k) - a(k) >= l
     iter = iter + 1;
     c = (a(k) + b(k))/2;
     x1 = c - e;
