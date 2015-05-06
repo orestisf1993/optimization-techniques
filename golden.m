@@ -1,6 +1,5 @@
 function [resa, k] = golden(f, a, b, l)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%golden The golden section method.
 
 gamma = 0.618;
 k = 1;

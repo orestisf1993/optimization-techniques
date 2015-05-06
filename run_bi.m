@@ -9,14 +9,22 @@ else
     return;
 end
 k = zeros(1, length(values));
+n = zeros(1, length(values));
+calcs = zeros(1, length(values));
 parfor i = 1: length(values)
     if e == -1
-        [c, tmp] = method(f, a, b, values(i), l);
+        [c, tmpk, tmpn, tmpcalcs] = method(f, a, b, values(i), l);
     else
-        [c, tmp] = method(f, a, b, e, values(i));
+        [c, tmpk, tmpn, tmpcalcs] = method(f, a, b, e, values(i));
     end
-    k(i) = tmp;
+    k(i) = tmpk;
+    n(i) = tmpn;
+    calcs(i) = tmpcalcs;
 end
 figure;
 plot(values, k)
+figure;
+plot(values, n)
+figure;
+plot(values, calcs)
 toc

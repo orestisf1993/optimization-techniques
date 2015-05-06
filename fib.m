@@ -1,4 +1,5 @@
 function [ y ] = fib(x)
+%fib Calculates the fibonacci sequence of x using a fib_array.
 
 global fib_array;
 if x == 0;

@@ -1,4 +1,5 @@
 function [c, n] = fibonacci_search(f, a, b, l)
+%fibonacci_search The fibonacci search method.
 
 % calculate n
 n=2;
