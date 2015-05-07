@@ -11,3 +11,8 @@
 slprj/
 
 *.pdf
+
+plots/
+
+*.odt
+*.odt#
