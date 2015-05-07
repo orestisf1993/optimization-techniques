@@ -12,7 +12,7 @@ slprj/
 
 *.pdf
 
-plots/
+*.png
 
 *.odt
 *.odt#
