@@ -1,6 +1,10 @@
-function [] = a_b_plots(f, method, astart, bstart, e, l, filename)
+function [] = a_b_plots(f, method, astart, bstart, e, l, filename, xmax)
 
-[a, b] = method(f, astart, bstart, e, l);
+if e == -1
+    [a, b] = method(f, astart, bstart, l);
+else
+    [a, b] = method(f, astart, bstart, e, l);
+end
 k = 1:length(a);
 
 figure('visible','off');
@@ -8,11 +12,15 @@ plot(k,a);
 hold
 plot(k,b);
 xmin = fminbnd(f, astart, bstart);
-hline(xmin, 'r', 'Actual min');
+% hline(xmin, 'o', 'Actual min');
+fplot(@(x) xmin, [1, xmax], '+');
+
+strmin = ['min = ',num2str(xmin)];
+text(0, xmin, strmin, 'HorizontalAlignment', 'left');
 
 
 ylim([astart, bstart]);
-xlim([1, 20]);
+xlim([1, xmax]);
 
 % Create ylabel
 ylabel({'a, b'},'FontSize',11);
