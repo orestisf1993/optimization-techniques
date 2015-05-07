@@ -3,18 +3,12 @@ tic
 
 l = 5e-07 : 5e-07 : 0.1;       % l
 x = 'l';
-const = 'ε';
 
 calcs = zeros(1, length(l));
-n = zeros(1, length(l));
 
 parfor i = 1: length(l)
-    [~, ~, tmpn, tmpcalcs] = method(f, a, b, l(i));     %#ok<*PFBNS>
-    if tmpn ~= tmpcalcs
-        error('wrong n - calcs!')
-    end
+    [~, ~, ~, tmpcalcs] = method(f, a, b, l(i));     %#ok<*PFBNS>
     calcs(i) = tmpcalcs;
-    n(i) = tmpn;
 end
 
 % figure;

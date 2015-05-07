@@ -1,6 +1,6 @@
-function [] = a_b_plots(f, method, astart, bstart, e, l, filename, xmax)
+function [] = a_b_plots(f, method, astart, bstart, e, l, filename, xmax, realf)
 
-if e == -1
+if e < 0
     [a, b] = method(f, astart, bstart, l);
 else
     [a, b] = method(f, astart, bstart, e, l);
@@ -11,7 +11,11 @@ figure('visible','off');
 plot(k,a);
 hold
 plot(k,b);
-xmin = fminbnd(f, astart, bstart);
+if e < -1
+    xmin = fminbnd(realf, astart, bstart);
+else
+    xmin = fminbnd(f, astart, bstart);
+end
 % hline(xmin, 'o', 'Actual min');
 fplot(@(x) xmin, [1, xmax], '+');
 

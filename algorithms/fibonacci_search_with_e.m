@@ -1,5 +1,5 @@
-function [a, b, n, calcs] = fibonacci_search(f, a, b, l)
-%fibonacci_search The fibonacci search method.
+function [a, b, n, calcs]=fibonacci_search_with_e(f, a, b, e, l)
+%fibonacci_search_with_e The fibonacci search method using e.
 
 % calculate n
 n=2;
@@ -29,7 +29,8 @@ b = [b zeros(1, n-1)];
 x1 = [x1 zeros(1, n-1)];
 x2 = [x2 zeros(1, n-1)];
 
-for k = 1: n-2
+% n - 4 calculations of f here
+for k = 1: n-3
     if f1 > f2
         a(k+1) = x1(k);
         b(k+1) = b(k);
@@ -47,18 +48,29 @@ for k = 1: n-2
     end
 end
 
-% k = n - 1
+% k = n - 2
 % no need to calculate f here.
 if f1 > f2
-    a(n) = x1(n - 1);
-    b(n) = b(n - 1);
-    x1(n) = x2(n - 1);
-    x2(n) = a(n) + fib(1) / fib(2) * (b(n) - a(n));
+    a(n - 1) = x1(n - 2);
+    b(n - 1) = b(n - 2);
+    x1(n - 1) = x2(n - 2);
+    x2(n - 1) = a(n - 1) + fib(1) / fib(2) * (b(n - 1) - a(n - 1));
 else
-    a(n) = a(n - 1);
-    b(n) = x2(n - 1);
-    x1(n) = a(n);
-    x2(n) = x1(n - 1);
+    a(n - 1) = a(n - 2);
+    b(n - 1) = x2(n - 2);
+    x1(n - 1) = a(n - 1);
+    x2(n - 1) = x1(n - 2);
 end
 
+% 2 calculations of f here.
+x1(n) = x1(n - 1);
+x2(n) = x1(n - 1) + e;
+if f(x1(n)) > f(x2(n))
+    a(n) = x1(n);
+    b(n) = b(n-1);
+else
+    a(n) = a(n-1);
+    b(n) = x1(n);
 end
+
+c = (a(n) + b(n))/2;
