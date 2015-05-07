@@ -1,4 +1,4 @@
-function [c, n] = fibonacci_search(f, a, b, l)
+function [a, b, n, calcs] = fibonacci_search(f, a, b, l)
 %fibonacci_search The fibonacci search method.
 
 % calculate n
@@ -11,6 +11,9 @@ while( fib_array(n) <= (b - a) / l)
    n = n + 1;
    fib_array(n) = fib_array(n-1) + fib_array(n-2);
 end
+
+global calcs;
+calcs = 0;
 
 % calculate initial values of x1, x2, f1 and f2
 % 2 calculations of f here.
@@ -57,7 +60,5 @@ else
     x1(n) = a(n);
     x2(n) = x1(n - 1);
 end
-
-c = (a(n) + b(n))/2;
 
 end

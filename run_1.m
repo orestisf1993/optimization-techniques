@@ -1,4 +1,4 @@
-function X=run_bi(method, f, a, b, e, l, filename)
+function []=run_1(method, f, a, b, e, l, filename)
 tic
 if e == -1
     values = 1e-08 : 1e-8 : 0.49 * l; % e
@@ -19,15 +19,15 @@ n = zeros(1, length(values));
 
 parfor i = 1: length(values)
     if e == -1
-        [~, ~, tmpk, ntmp, tmpcalcs] = method(f, a, b, values(i), l); %#ok<*PFBNS>
+        [~, ~, tmpk, tmpn, tmpcalcs] = method(f, a, b, values(i), l); %#ok<*PFBNS>
     else
-        [~, ~, tmpk, ntmp, tmpcalcs] = method(f, a, b, e, values(i));
+        [~, ~, tmpk, tmpn, tmpcalcs] = method(f, a, b, e, values(i));
     end
     if 2 * tmpk ~= tmpcalcs
         error('wrong k - calcs!')
     end
     calcs(i) = tmpcalcs;
-    n(i) = ntmp;
+    n(i) = tmpn;
 end
 
 n = n * 2;
@@ -36,7 +36,7 @@ n = n * 2;
 % plot(values, k)
 % figure;
 % plot(values, n)
-figure;
+figure('visible','off');
 plot(values, calcs)
 hold;
 plot(values, n)
