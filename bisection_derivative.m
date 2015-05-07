@@ -1,4 +1,4 @@
-function [c, k, n, calcs] = bisection_derivative(f, df, a, b, l)
+function [c, k, n, calcs] = bisection_derivative(df, a, b, l)
 %bisection_derivative The bisection method using derivatives.
 
 global calcs;
@@ -10,6 +10,10 @@ while (1/2)^n > l / (b - a)
 end
 
 k = 1;
+
+a = [a zeros(1, n)];
+b = [b zeros(1, n)];
+x = zeros(1, n);
 
 for k = 1:n
     x(k) = (a(k) + b(k)) / 2;
@@ -25,7 +29,6 @@ for k = 1:n
     end
 end
 
-c = x(k);
+c = (a(n + 1) + b(n + 1))/2;
 
 end
-

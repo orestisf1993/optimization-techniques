@@ -22,4 +22,3 @@ while b(k) - a(k) >= l
 end
 resa = a(k-1);
 resb = b(k-1);
-

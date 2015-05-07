@@ -7,4 +7,3 @@ calcs = calcs + 1;
 y = 2 * x + cos(x) - 4;
 
 end
-

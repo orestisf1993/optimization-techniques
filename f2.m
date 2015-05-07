@@ -7,4 +7,3 @@ calcs = calcs + 1;
 y = (x-2)^2 + sin(x);
 
 end
-

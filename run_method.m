@@ -6,4 +6,3 @@ parfor i = 1: length(lvalues)
 end
 figure;
 plot(lvalues, k * 2)
-

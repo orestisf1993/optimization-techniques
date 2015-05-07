@@ -1,23 +1,21 @@
-function [c, k, n, calcs] = bisection(f, a, b, e, l)
+function [a, b, k, n, calcs] = bisection(f, a, b, e, l)
 %bisection The bisection method.
 
-global calcs;
-calcs = 0;
-
-k = 1;
-
+% calculate the theoritical number of iterations, n
 n = 1;
 while (1/2)^n > l / (b - a)
     n = n + 1;
 end
 
+% initialize values
+
+global calcs;
+calcs = 0;
+k = 1;
 a = [a zeros(1, n)];
 b = [b zeros(1, n)];
 
-iter = 0;
-
 while b(k) - a(k) >= l
-    iter = iter + 1;
     c = (a(k) + b(k))/2;
     x1 = c - e;
     x2 = c + e;
@@ -30,7 +28,5 @@ while b(k) - a(k) >= l
     end
     k = k + 1;
 end
-c = (a(k) + b(k))/2;
 k = k - 1;
 end
-

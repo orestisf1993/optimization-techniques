@@ -7,4 +7,3 @@ calcs = calcs + 1;
 y = 3 * x.^2 - 10 * x + 6;
 
 end
-
