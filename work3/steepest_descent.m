@@ -1,4 +1,4 @@
-function [k, x, y, point] = steepest_descent(varargin)
+function [k, x, y, g] = steepest_descent(varargin)
 %steepest_descent Steepest descent method with gamma given from variable input.
 
 % default values
@@ -6,7 +6,7 @@ p = inputParser;
 default_e = 1e-7;
 default_c = 2;
 default_point = [0; 0];
-default_gamma = 0.5;
+default_gamma = 1;
 
 % data type checking functions
 is_point = @(x) (isnumeric(x) && all(size(x) == [2 1]) && all(isfinite(x)));
@@ -27,20 +27,25 @@ gamma = p.Results.gamma;
 point = p.Results.point;
 gamma_rule = p.Results.gamma_rule;
 
+display(e)
+display(gamma)
+display(point)
+display(gamma_rule)
+
 k = 1;
 x = point(1, k);
 y = point(2, k);
 g = gradf(x ,y);
 
 % main loop
-while norm(g) >= e
+while norm(g(:, k)) >= e
     gamma = gamma_rule(x, y, g, gamma);
-    
-    point(:, k + 1) = point(:, k) - gamma * g;
+    point(:, k + 1) = point(:, k) - gamma * g(:, k);
     
     k = k + 1;
     x(k) = point(1, k);
     y(k) = point(2, k);
-    g = gradf(x(k) ,y(k));
+    g(:, k) = gradf(x(k) ,y(k));
 end
+
 end
