@@ -1,27 +1,41 @@
-function [k] = steepest_descent(starting_point, gamma, e)
-%steepest_descent Steepest descent method with constant gamma
+function [k, x, y, point] = steepest_descent(varargin)
+%steepest_descent2 Steepest descent method with variable gamma
 
-if ~exist('gamma', 'var') || isempty(gamma)
-    gamma = 0.8;
-end
+p = inputParser;
+default_e = 1e-7;
+default_c = 2;
+default_point = [0; 0];
+default_gamma = 0.5;
 
-if ~exist('e', 'var') || isempty(e)
-    e = 1e-7;
-end
+is_point = @(x) (isnumeric(x) && all(size(x) == [2 1]) && all(isfinite(x)));
+is_positive_number = @(x) (isnumeric(x) && all(x > 0) && isscalar(x) && all(isfinite(x)));
+is_function_handle = @(x) (isa(x, 'function_handle'));
+
+addParameter(p,'c', default_c, is_positive_number);
+addParameter(p,'gamma', default_gamma, is_positive_number);
+addParameter(p,'e', default_e, is_positive_number);
+addParameter(p,'point', default_point, is_point);
+addRequired(p, 'gamma_rule', is_function_handle);
+
+parse(p, varargin{:});
+e = p.Results.e;
+gamma = p.Results.gamma;
+point = p.Results.point;
+gamma_rule = p.Results.gamma_rule;
 
 k = 1;
-
-point = [starting_point zeros(2, 15)];
 x = point(1, k);
 y = point(2, k);
 g = gradf(x ,y);
 
 while norm(g) >= e
+    gamma = gamma_rule(x, y, g, gamma);
+    
     point(:, k + 1) = point(:, k) - gamma * g;
     
-    k = k + 1;    
-    x = point(1, k);
-    y = point(2, k);
-    g = gradf(x ,y);    
+    k = k + 1;
+    x(k) = point(1, k);
+    y(k) = point(2, k);
+    g = gradf(x(k) ,y(k));
 end
 end
