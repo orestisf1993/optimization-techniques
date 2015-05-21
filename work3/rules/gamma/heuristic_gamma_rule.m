@@ -1,23 +1,26 @@
-function [gamma] = heuristic_gamma_rule(x, ~, gamma)
+function [gamma] = heuristic_gamma_rule(x, ~, gamma, ~)
 %heuristic_gamma_rule Heuristic rule for gamma.
 
+persistent fold;
+
 [~, k] = size(x);
-if k > 1
+newx = x(1, end);
+newy = x(2, end);
+
+if k > 1    
+    fnew = f(newx, newy);
     
-    newx = x(1, end);
-    oldx = x(1, end - 1);
-    newy = x(2, end);
-    oldy = x(2, end - 1);
-    
-    if f(newx, newy) > f(oldx, oldy)
+    if fnew > fold
         % decrease stepsize
         gamma = 0.5 * gamma;
         gamma = [-1 gamma];
     else
         % increase stepsize
         gamma = 1.2 * gamma;
+        fold = fnew;
     end
 
-end
+else
+    fold = f(newx, newy);
 
 end

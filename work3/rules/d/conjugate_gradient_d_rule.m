@@ -8,6 +8,9 @@ else
     g = g(:, end);
     b = (g' * (g - oldg)) / (oldg' * oldg);
     d = -g + b * d;
+    
+    if(abs(g' * oldg) > 0.1 * (norm(oldg))^2)
+                d = -g;
+    end
 end
-
 end

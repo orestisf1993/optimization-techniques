@@ -1,4 +1,4 @@
-function [gamma] = const_gamma_rule(~, ~, gamma)
+function [gamma] = const_gamma_rule(~, ~, gamma, ~)
 %const_gamma Constant gamma
 
 
