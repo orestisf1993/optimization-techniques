@@ -441,6 +441,52 @@ subplot(2,1,2);
 process_plot(x, X, Y, Z, 'Steps of Conjugate Gradient method for heuristic γ');
 save_plot(fig, 'doc_404conjugate_process_plot_heur');
 
+%%  ----------------------- Quasi Newton ---------------------------------------
+% process plots
+fig = figure('visible', 'off');
+
+[~, x, ~] = generic_algorithm(@quasi_newton_d_rule, @const_gamma_rule, 'e', 1e-8, 'start_x', [-2; -1], 'gamma', 0.37);
+subplot(2,2,1);
+process_plot(x, X, Y, Z, textwrap({'Steps of Quasi Newton method for γ = 0.37'}, 30));
+
+[~, x, ~] = generic_algorithm(@quasi_newton_d_rule, @const_gamma_rule, 'e', 1e-8, 'start_x', [-2; -1], 'gamma', 0.2);
+subplot(2,2,2);
+process_plot(x, X, Y, Z, textwrap({'Steps of Quasi Newton method for γ = 0.2'}, 30));
+
+[~, x, ~] = generic_algorithm(@quasi_newton_d_rule, @const_gamma_rule, 'e', 1e-8, 'start_x', [-3; 3], 'gamma', 0.66);
+subplot(2,2,3);
+process_plot(x, X, Y, Z, textwrap({'Steps of Quasi Newton method for γ = 0.66'}, 30));
+
+[~, x, ~] = generic_algorithm(@quasi_newton_d_rule, @const_gamma_rule, 'e', 1e-8, 'start_x', [-3; 3], 'gamma', 0.2);
+subplot(2,2,4);
+process_plot(x, X, Y, Z, textwrap({'Steps of Quasi Newton method for γ = 0.2'}, 30));
+
+save_plot(fig, 'doc_500quasi_process_plot_const');
+
+% fmin plots
+hold off;
+
+profile on;
+[k, x, ~] = generic_algorithm(@quasi_newton_d_rule, @fmin_rule, 'e', 1e-8, 'start_x', [-2; -1]);
+stats = profile('info');
+profile off;
+idx = arrayfun(@(x)all(x.FunctionName=='f'),stats.FunctionTable);
+fcalls = stats.FunctionTable(idx).NumCalls;
+subplot(2,1,1);
+process_plot(x, X, Y, Z, 'Steps of Quasi Newton method for optimized γ');
+fprintf('quasi -2,-1 optimized %d fcalls %d steps\n', fcalls, k);
+
+profile on;
+[k, x, ~] = generic_algorithm(@quasi_newton_d_rule, @fmin_rule, 'e', 1e-8, 'start_x', [-3; 3]);
+stats = profile('info');
+profile off;
+idx = arrayfun(@(x)all(x.FunctionName=='f'),stats.FunctionTable);
+fcalls = stats.FunctionTable(idx).NumCalls;
+subplot(2,1,2);
+process_plot(x, X, Y, Z, 'Steps of Quasi Newton method for optimized γ');
+fprintf('quasi -3,3 optimized %d fcalls %d steps\n', fcalls, k);
+save_plot(fig, 'doc_501quasi_process_plot_opt');
+
 
 %%  ----------------------- Finish ---------------------------------------------
 clf;

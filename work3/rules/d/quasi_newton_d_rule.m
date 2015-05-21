@@ -6,7 +6,7 @@ persistent D;
 j = 1;
 
 if isnan(d)
-    D = eye(2,2);
+    D = 1 * eye(2,2);
     d = -D * g;
 else
 
