@@ -36,15 +36,14 @@ k = 1;
 total_iterations = 1;
 g = gradf(x(1,k) ,x(2,k));
 
-gamma_inputs = {x, g, gamma};
 d_inputs = {x, g, NaN};
-
 if use_hessian
     h = hessianf(x(1,k), x(2,k));
     d_inputs{4} = h;
 end
 
 d = d_rule(d_inputs{:});
+gamma_inputs = {x, g, gamma, d};
 gamma = gamma_rule(gamma_inputs{:});
 
 % main loop
@@ -52,18 +51,18 @@ while norm(g(:, k)) >= e
     total_iterations = total_iterations + 1;
     x(:, k + 1) = x(:, k) + gamma * d;
     g(:, k + 1) = gradf(x(1, k + 1) ,x(2, k + 1));
-    gamma_inputs = {x, g, gamma};
     d_inputs = {x, g, d};
     if use_hessian
         h(:, :, k + 1) = hessianf(x(1, k + 1) ,x(2, k + 1));
         d_inputs{4} = h;
     end
+    d = d_rule(d_inputs{:});
+    gamma_inputs = {x, g, gamma, d};
     gamma = gamma_rule(gamma_inputs{:});
     if gamma(1) == -1
         gamma = gamma(2);
         continue;
-    end
-    d = d_rule(d_inputs{:});
+    end   
     
     k = k + 1;
     if (k > max_k) 
