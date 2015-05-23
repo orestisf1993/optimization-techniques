@@ -1,0 +1,190 @@
+% Specify the type of document
+\documentclass[12pt,titlepage,letterpaper,onecolumn]{report}
+
+% User packages
+
+% Only for xelatex and lualatex. It provides an automatic and unified interface to feature-rich AAT and OpenType fonts.
+% https://ctan.org/pkg/fontspec
+\usepackage{fontspec}
+% https://www.ctan.org/pkg/inputenc
+\usepackage[utf8]{inputenc}
+
+% Select alternative section titles
+% https://www.ctan.org/pkg/titlesec
+\usepackage{titlesec}
+
+% For graphics. Used for \usepackage{}
+% http://www.kwasan.kyoto-u.ac.jp/solarb6/usinggraphicx.pdf
+% https://ctan.org/pkg/graphicx
+\usepackage{graphicx}
+
+% provides LaTeX the ability to create hyperlinks within the document.
+% https://www.ctan.org/pkg/hyperref
+% http://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Hyperref
+\usepackage{hyperref}
+% for going to the top of an image when a figure reference is clicked: http://stackoverflow.com/a/21251925/3430986%
+\usepackage{caption}
+
+% http://tex.stackexchange.com/questions/118713/is-microtype-fully-supported-now-by-xelatex-if-not-how-can-i-keep-myself-up-to
+% http://tug.org/pipermail/xetex/2013-April/024263.html
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyref}
+\usepackage{multicol}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+\usepackage[margin=1in]{geometry}
+
+% Used for pgf plots. Taken from https://github.com/matlab2tikz/matlab2tikz
+% also see http://www.howtotex.com/packages/beautiful-matlab-figures-in-latex/
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+\newlength\figureheight
+\newlength\figurewidth
+
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/]
+
+% Quickly check the document. To produce pages, comment it out
+\usepackage{syntonly}
+\syntaxonly
+
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+\setmainfont{DejaVu Serif}
+% plain, headings or empty. Headins prints the current chapter heading + page number
+\pagestyle{headings}
+
+% http://tex.stackexchange.com/a/27099
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+% Change the title of contents list and figure list
+\renewcommand{\contentsname}{Περιεχόμενα}
+\renewcommand{\listfigurename}{Λίστα Σχημάτων}
+% Change the name of each figure
+\renewcommand{\figurename}{Σχήμα}
+
+% defines a variable
+%\def \variableName {Something that's better to use as a variable}
+
+% \\ or \newline == newline, no paragraph
+% \\* == no page break
+
+\title{4η Εργαστηριακή Άσκηση}
+\author{Ορέστης Φλώρος-Μαλιβίτσης\\
+  Τομέας Ηλεκτρονικής,\\
+  Τμήμα Ηλ. Μηχανικών / Μηχανικών ΗΥ,\\
+  Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}
+\date{22/05/2015}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\newpage
+
+
+% Δομή του Project
+\chapter*{Δομή του Project} \label{project-structure}
+
+\begin{description}
+	\item[Floros\_orestis\_Work4\_7796.pdf] Αυτή η αναφορά.
+	\item[work4.pdf] Η εκφώνηση της εργαστηριακής άσκησης.
+	\item[plots] Φάκελος που βρίσκονται οι διάφορες γραφικές παραστάσεις σε μορφή png. Επίσης, περιέχει τους κώδικες Matlab για την δημιουργία αυτών των γραφικών παραστάσεων.
+	\item[functions] Φάκελος με την συνάρτηση και την παράγωγό της.
+\end{description}
+
+% Εισαγωγή
+\chapter{Εισαγωγή} \label{intro}
+
+Σε αυτή την άσκηση θεωρούμε την τετραγωνική συνάρτηση
+\begin{equation*}
+	f:\mathbb{R}^{2} \mapsto \mathbb{R}, \qquad f(x) = \frac{1}{2} \cdot x_1 ^ 2 + \frac{1}{2} \cdot x_2^2
+\end{equation*}
+Υπολογίζουμε την κλίση $\nabla f(x, y) = \{x, y\}$. \newline
+Στα σχήματα \ref{fig:000f_mesh_plot} με \ref{fig:003f_contour_plot_fill} παρουσιάζονται διάφορες γραφικές παραστάσεις της f ώστε να έχουμε μία γεωμετρική ιδέα για την μορφή της. Στα σχήματα \ref{fig:006gradf_quiver_f_contour_plot} και \ref{fig:005gradf_mesh_plot} παρουσιάζονται γραφήματα για την $\nabla f$.
+
+% These figures will be showed in a multicol style. 2 figures per row.
+\begin{multicols}{2}
+
+\begin{Figure}
+%	\centerfloat
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm} 
+	\input{plots/functions/000f_mesh_plot}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ mesh plot}
+	\label {fig:000f_mesh_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/001f_surf_plot}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ surface plot}
+	\label {fig:001f_surf_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/002f_contour_plot_showtext}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ contour plot}
+	\label{fig:002f_contour_plot_showtext}
+\end{Figure}
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/003f_contour_plot_fill}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ contour plot}
+	\label{fig:003f_contour_plot_fill}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/006gradf_quiver_f_contour_plot}
+	\captionsetup{type=figure}
+	\caption{quiver plot of $\parallel \nabla f(x,y) \parallel$ with contour plot of $f(x,y)$}
+	\label{fig:006gradf_quiver_f_contour_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/005gradf_mesh_plot}
+	\captionsetup{type=figure}
+	\caption{$\parallel \nabla f(x,y) \parallel$ mesh plot}
+	\label{fig:005gradf_mesh_plot}
+\end{Figure}
+
+% continue using 1 col per page.
+\end{multicols}
+
+
+\chapter{Ερώτημα (α)}
+
+
+\end{document}
