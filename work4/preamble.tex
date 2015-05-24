@@ -1,0 +1,61 @@
+% Specify the type of document
+\documentclass[12pt,titlepage,letterpaper,onecolumn]{report}
+
+% packages
+
+% https://www.ctan.org/pkg/inputenc
+\usepackage[utf8]{inputenc}
+
+% Select alternative section titles
+% https://www.ctan.org/pkg/titlesec
+\usepackage{titlesec}
+
+% For graphics. Used for \usepackage{}
+% http://www.kwasan.kyoto-u.ac.jp/solarb6/usinggraphicx.pdf
+% https://ctan.org/pkg/graphicx
+\usepackage{graphicx}
+
+% provides LaTeX the ability to create hyperlinks within the document.
+% https://www.ctan.org/pkg/hyperref
+% http://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Hyperref
+\usepackage{hyperref}
+% for going to the top of an image when a figure reference is clicked: http://stackoverflow.com/a/21251925/3430986%
+\usepackage{caption}
+
+% http://tex.stackexchange.com/questions/118713/is-microtype-fully-supported-now-by-xelatex-if-not-how-can-i-keep-myself-up-to
+% http://tug.org/pipermail/xetex/2013-April/024263.html
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyref}
+\usepackage{multicol}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+\usepackage[margin=1in]{geometry}
+
+% Used for pgf plots. Taken from https://github.com/matlab2tikz/matlab2tikz
+% also see http://www.howtotex.com/packages/beautiful-matlab-figures-in-latex/
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+\newlength\figureheight
+\newlength\figurewidth
+
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikz/]
+
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+% plain, headings or empty. Headins prints the current chapter heading + page number
+\pagestyle{headings}
+
+% http://tex.stackexchange.com/a/27099
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+\endofdump

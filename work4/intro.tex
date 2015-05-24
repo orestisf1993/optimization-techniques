@@ -1,0 +1,80 @@
+% Εισαγωγή
+\chapter{Εισαγωγή} \label{intro}
+
+Σε αυτή την άσκηση θεωρούμε την τετραγωνική συνάρτηση
+\begin{equation*}
+	f:\mathbb{R}^{2} \mapsto \mathbb{R}, \qquad f(x) = \frac{1}{2} \cdot x_1 ^ 2 + \frac{1}{2} \cdot x_2^2
+\end{equation*}
+Υπολογίζουμε την κλίση $\nabla f(x, y) = \{x, y\}$. \newline
+Στα σχήματα \ref{fig:000f_mesh_plot} με \ref{fig:003f_contour_plot_fill} παρουσιάζονται διάφορες γραφικές παραστάσεις της f ώστε να έχουμε μία γεωμετρική ιδέα για την μορφή της. Στα σχήματα \ref{fig:006gradf_quiver_f_contour_plot} και \ref{fig:005gradf_mesh_plot} παρουσιάζονται γραφήματα για την $\nabla f$.
+
+% These figures will be showed in a multicol style. 2 figures per row.
+\begin{multicols}{2}
+
+\begin{Figure}
+%	\centerfloat
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm} 
+	\input{plots/functions/000f_mesh_plot}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ mesh plot}
+	\label {fig:000f_mesh_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/001f_surf_plot}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ surface plot}
+	\label {fig:001f_surf_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/002f_contour_plot_showtext}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ contour plot}
+	\label{fig:002f_contour_plot_showtext}
+\end{Figure}
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/003f_contour_plot_fill}
+	\captionsetup{type=figure}
+	\caption{$f(x,y)$ contour plot}
+	\label{fig:003f_contour_plot_fill}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/006gradf_quiver_f_contour_plot}
+	\captionsetup{type=figure}
+	\caption{quiver plot of $\parallel \nabla f(x,y) \parallel$ with contour plot of $f(x,y)$}
+	\label{fig:006gradf_quiver_f_contour_plot}
+\end{Figure}
+
+
+\begin{Figure}
+	\centering
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{6cm}
+	\input{plots/functions/005gradf_mesh_plot}
+	\captionsetup{type=figure}
+	\caption{$\parallel \nabla f(x,y) \parallel$ mesh plot}
+	\label{fig:005gradf_mesh_plot}
+\end{Figure}
+
+% continue using 1 col per page.
+\end{multicols}
