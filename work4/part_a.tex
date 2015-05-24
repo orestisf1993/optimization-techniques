@@ -1,1 +1,107 @@
 \chapter{Ερώτημα (α)}
+
+
+Με την χρήση της μεθόδου της μεγίστης καθόδου με σταθερό βήμα $\gamma_k$ (υλοποίηση της προηγούμενης εργασίας) 
+αναζητούμε το ελάχιστο της συνάρτησης με αρχικό σημείο το (-5,5).
+Στο σχήμα \ref{fig:stepeest_plots} βλέπουμε τα αποτελέσματα για $\gamma = 0.1$, $\gamma = 1$, $\gamma = 2$, $\gamma = 10$.
+
+\begin{figure}[hbtp]
+	\centering
+	\setlength\figureheight{\textwidth}
+	\setlength\figurewidth{\textwidth}
+%	\input{plots/algorithms/stepeest_plots}
+	\caption{Σύγκλιση της μεγίστης καθόδου για σταθερά γ}
+	\label{fig:stepeest_plots}
+\end{figure}
+
+\noindent \begin{minipage}{\linewidth}
+\noindent Παρατηρούμε ότι:
+\begin{enumerate}[i)]
+	\item Για $\gamma = 0.1$ ο αλγόριθμος συγκλίνει επιτυχώς στο ελάχιστο σε 64 βήματα.
+	\item Για $\gamma = 1$ ο αλγόριθμος συγκλίνει επιτυχώς στο ελάχιστο σε 2 βήματα. Δηλαδή, από το σημείο (-5, 5) καταλήγει αμέσως στη λύση (0,0).
+	\item Για $\gamma = 2$ ο αλγόριθμος δεν συγκλίνει. Παρατηρούμε μια "ταλάντωση" μεταξύ του αρχικού σημείου (-5, 5) και του (5, -5). Δηλαδή, ο αλγόριθμος εναλλάσσεται μεταξύ των δύο αυτών σημείων σε κάθε βήμα και δεν καταλήγει ποτέ στο ελάχιστο.
+	\item Για $\gamma = 10$ ο αλγόριθμος απομακρύνεται συνεχόμενα από το αρχικό του σημείο. Η ακολουθία $x_k$ παίρνει τιμές $(-5, 5) \rightarrow (45, -45) \rightarrow (-405, 405) \rightarrow (3645, -3645) \rightarrow ... \rightarrow (\infty, -\infty)$ (όπου $\infty$ η μέγιστες τιμές που μπορούν να χρησιμοποιηθούν στο Matlab).
+\end{enumerate}
+\end{minipage}
+
+\hfill \break
+\hfill \break
+\noindent Μια εξήγηση μπορεί να δοθεί από τον τύπο για την ακολουθία της μεγίστης καθόδου: 
+\begin{equation}
+	x_{k + 1} = x_k - \gamma_k \cdot \nabla f(x_k) 
+\end{equation}
+όπου αν αντικαταστήσουμε την τιμή του $\nabla f(x_k) = x_k$ και θεωρήσουμε σταθερό $\gamma_k = \gamma$ έχουμε:
+\begin{equation}
+	x_{k + 1} = x_k - \gamma \cdot x_k = (1- \gamma) \cdot x_k
+\end{equation}
+\hfill \break
+\noindent Έτσι, αντικαθιστώντας για τις διάφορες τιμές του $\gamma$ έχουμε:
+\begin{enumerate}[i)]
+	\item $\gamma = 0.1 \Rightarrow x_{k + 1} = 0.9 \cdot x_k$
+	
+	Οπότε, αν έχουμε ένα αρχικό σημείο $x_1$ η ακολουθία $x_k$ έχει ως εξής:
+	\begin{itemize}
+		\item $x_2 = 0.9 \cdot x_1$
+		\item $x_3 = 0.9 \cdot x_2 = 0.9^2 \cdot x_1$
+		\item $x_4 = 0.9 \cdot x_3 = 0.9^3 \cdot x_1$
+		\item \ldots
+		\item $x_k = 0.9^{k-1} \cdot x_1$
+	\end{itemize}
+	
+	Παρατηρούμε ότι $\parallel x_{k+1} \parallel < \parallel x_{k} \parallel \forall k \in \mathbb{N}$ και ότι η ακολουθία συγκλίνει προς το (0,0) για $k \to +\infty$.
+	
+	Ισχύει
+	\begin{equation}
+		(x_1, x_2) = \frac{1}{2} \cdot (x_1^2 + x_2^2) = \frac{1}{2} \cdot \parallel (x_1, x_2) \parallel
+	\end{equation} άρα	$\parallel x_{k+1} \parallel < \parallel x_{k} \parallel \Rightarrow f(x_{k+1}) < f(x_k)$.
+	
+	Ακόμα, έχουμε 
+	\begin{equation}
+		\parallel \nabla f(x_k) \parallel = \parallel x_k \parallel = 0.9^{k-1} \cdot \parallel x_1 \parallel
+	\end{equation}
+	και θέλουμε 
+	\begin{equation}
+		\label{eq:while_termination}
+		\parallel \nabla f(x_k) \parallel < \epsilon
+	\end{equation}
+	
+	Λύνουμε την εξίσωση \[ 0.9^{k-1} \cdot \parallel x_1 \parallel = \epsilon \] 
+	παίρνοντας λογαρίθμους και στις 2 μεριές: 
+	\begin{align*}
+		 (k - 1) \cdot \ln 0.9 &= ln(\frac{\epsilon}{\parallel x_1 \parallel}) \Rightarrow \\
+		 k &= \frac{\ln \epsilon - \ln \parallel x_1 \parallel}{\ln 0.9} + 1
+	\end{align*}
+	Τελικά, αντικαθιστώντας για $\epsilon = 0.01$ και $x_1 = (-5, 5)$ παίρνουμε $k = 63.27$
+	
+	Αφού $\parallel \nabla f(x_{k+1}) \parallel < \parallel \nabla f(x_k) \parallel$ η σχέση \ref{eq:while_termination} ικανοποιείται για $k = \left \lceil{63.27}\right \rceil$
+	δηλαδή σε 64 βήματα το οποίο επαληθεύει τα αποτελέσματα από την εκτέλεση του κώδικα που βρήκαμε πριν.
+	
+	\item $\gamma = 1 \Rightarrow x_{k+1} = 0$
+	
+	Οπότε, άσχετα με την επιλογή του $x_1$ θα έχουμε $x_2 = 0$ το οποίο επαληθεύει και τα αποτελέσματα από το Matlab.
+	
+ 	\item $\gamma = 2 \Rightarrow x_{k+1} = -x_{k}$
+ 	
+ 	Έτσι, $x_{k+2}=-x_{k+1}=x_{k}$. 
+ 	Αυτό εξηγεί την συμπεριφορά του αλγορίθμου δηλαδή την "ταλάντωση" μεταξύ του αρχικού σημείου και του συμμετρικού του ως προς (0,0).
+ 	\item $\gamma = 10  \Rightarrow x_{k+1} = -9 \cdot x_k$
+ 		
+	Οπότε, αν έχουμε ένα αρχικό σημείο $x_1$ η ακολουθία $x_k$ έχει ως εξής:
+	\begin{itemize}
+		\item $x_2 = -9 \cdot x_1$
+		\item $x_3 = -9 \cdot x_2 = (-9)^2 \cdot x_1$
+		\item $x_4 = -9 \cdot x_3 = (-9)^3 \cdot x_1$
+		\item \ldots
+		\item $x_k = (-9)^{k-1} \cdot x_1$
+	\end{itemize}
+	Παρατηρούμε ότι $\parallel x_{k+1} \parallel > \parallel x_{k} \parallel \forall k \in \mathbb{N}$ και ότι η ακολουθία αποκλίνει από το (0,0) για $k \to +\infty$.
+	
+	Αντικαθιστώντας για $\epsilon = 0.01$ και $x_1 = (-5, 5)$:
+	\begin{itemize}
+		\item $x_2 = (45, -45)$
+		\item $x_3 = (-405, 405)$
+		\item $x_4 = (3645, -3645)$
+		\item ...
+	\end{itemize}
+	Έτσι εξηγείται η συμπεριφορά του αλγορίθμου και για αυτή τη τιμή του $\gamma$
+\end{enumerate}

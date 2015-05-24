@@ -1,4 +1,6 @@
-%\endofdump
+%&preamble
+% extra for preamble:
+\usepackage{enumerate}% http://ctan.org/pkg/enumerate
 %% end of static part. Save at preamble.tex and use command: xelatex -ini -shell-escape -job-name="preamble" "&xelatex preamble.tex\dump"
 %% dynamic part
 
@@ -28,7 +30,7 @@
 \includeonly{part_a}
 
 % Quickly check the document. To produce pages, comment it out
-\usepackage{syntonly}
+%\usepackage{syntonly}
 %\syntaxonly
 
 \begin{document}
