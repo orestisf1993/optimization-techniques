@@ -18,3 +18,14 @@ slprj/
 *.odt#
 
 *.zip
+
+#from latex
+*.aux
+*.fmt
+*.log
+*.log
+*.lof
+*.out
+*.gz
+*.toc
+*.auxlock
