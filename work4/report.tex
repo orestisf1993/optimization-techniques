@@ -1,6 +1,19 @@
 %&preamble
-% extra for preamble:
-\usepackage{enumerate}% http://ctan.org/pkg/enumerate
+\usetikzlibrary{external}
+\tikzset{external/system call={xelatex -fmt=preamble.fmt \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+\tikzexternalize
+
+%delete external pdf if old
+\newcommand{\deloldext}[2]{%  
+   \immediate\write18{./deloldext.pl '#1' '#2'}
+}
+%include tikz file and call \deloldext
+\newcommand{\includetikz}[1]{%
+    \tikzsetnextfilename{#1}%
+    \deloldext{#1.tikz}{#1.pdf}%
+    \input{#1.tikz}%
+}
+
 %% end of static part. Save at preamble.tex and use command: xelatex -ini -shell-escape -job-name="preamble" "&xelatex preamble.tex\dump"
 %% dynamic part
 
@@ -27,7 +40,7 @@
   Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}
 \date{22/05/2015}
 
-\includeonly{part_a}
+%\includeonly{part_b}
 
 % Quickly check the document. To produce pages, comment it out
 %\usepackage{syntonly}

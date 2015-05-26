@@ -6,7 +6,8 @@
 	f:\mathbb{R}^{2} \mapsto \mathbb{R}, \qquad f(x) = \frac{1}{2} \cdot x_1 ^ 2 + \frac{1}{2} \cdot x_2^2
 \end{equation*}
 Υπολογίζουμε την κλίση $\nabla f(x, y) = \{x, y\}$. \newline
-Στα σχήματα \ref{fig:000f_mesh_plot} με \ref{fig:003f_contour_plot_fill} παρουσιάζονται διάφορες γραφικές παραστάσεις της f ώστε να έχουμε μία γεωμετρική ιδέα για την μορφή της. Στα σχήματα \ref{fig:006gradf_quiver_f_contour_plot} και \ref{fig:005gradf_mesh_plot} παρουσιάζονται γραφήματα για την $\nabla f$.
+Στα σχήματα \ref{fig:000f_mesh_plot} με \ref{fig:003f_contour_plot_fill} παρουσιάζονται διάφορες γραφικές παραστάσεις της f ώστε να έχουμε μία γεωμετρική ιδέα για την μορφή της. Στα σχήματα \ref{fig:006gradf_quiver_f_contour_plot} και \ref{fig:005gradf_mesh_plot} παρουσιάζονται γραφήματα για την $\nabla f$. \newline
+Προφανώς, το ελάχιστο της συνάρτησης βρίσκεται στο σημείο (0,0).
 
 % These figures will be showed in a multicol style. 2 figures per row.
 \begin{multicols}{2}
@@ -16,7 +17,8 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm} 
-	\input{plots/functions/000f_mesh_plot}
+%	\input{plots/functions/000f_mesh_plot}
+	\includetikz{plots/functions/000f_mesh_plot}
 	\captionsetup{type=figure}
 	\caption{$f(x,y)$ mesh plot}
 	\label {fig:000f_mesh_plot}
@@ -27,7 +29,8 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm}
-	\input{plots/functions/001f_surf_plot}
+%	\input{plots/functions/001f_surf_plot}
+	\includetikz{plots/functions/001f_surf_plot}
 	\captionsetup{type=figure}
 	\caption{$f(x,y)$ surface plot}
 	\label {fig:001f_surf_plot}
@@ -38,7 +41,8 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm}
-	\input{plots/functions/002f_contour_plot_showtext}
+%	\input{plots/functions/002f_contour_plot_showtext}
+	\includetikz{plots/functions/002f_contour_plot_showtext}
 	\captionsetup{type=figure}
 	\caption{$f(x,y)$ contour plot}
 	\label{fig:002f_contour_plot_showtext}
@@ -48,7 +52,8 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm}
-	\input{plots/functions/003f_contour_plot_fill}
+%	\input{plots/functions/003f_contour_plot_fill}
+	\includetikz{plots/functions/003f_contour_plot_fill}
 	\captionsetup{type=figure}
 	\caption{$f(x,y)$ contour plot}
 	\label{fig:003f_contour_plot_fill}
@@ -59,9 +64,10 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm}
-	\input{plots/functions/006gradf_quiver_f_contour_plot}
+%	\input{plots/functions/006gradf_quiver_f_contour_plot}
+	\includetikz{plots/functions/006gradf_quiver_f_contour_plot}
 	\captionsetup{type=figure}
-	\caption{quiver plot of $\parallel \nabla f(x,y) \parallel$ with contour plot of $f(x,y)$}
+	\caption{quiver plot of $\norm{\nabla f(x,y)}$ with contour plot of $f(x,y)$}
 	\label{fig:006gradf_quiver_f_contour_plot}
 \end{Figure}
 
@@ -70,9 +76,10 @@
 	\centering
 	\setlength\figureheight{6cm}
 	\setlength\figurewidth{6cm}
-	\input{plots/functions/005gradf_mesh_plot}
+%	\input{plots/functions/005gradf_mesh_plot}
+	\includetikz{plots/functions/005gradf_mesh_plot}
 	\captionsetup{type=figure}
-	\caption{$\parallel \nabla f(x,y) \parallel$ mesh plot}
+	\caption{$\norm{\nabla f(x,y)}$ mesh plot}
 	\label{fig:005gradf_mesh_plot}
 \end{Figure}
 

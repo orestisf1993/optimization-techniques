@@ -1,6 +1,5 @@
 \chapter{Ερώτημα (α)}
 
-
 Με την χρήση της μεθόδου της μεγίστης καθόδου με σταθερό βήμα $\gamma_k$ (υλοποίηση της προηγούμενης εργασίας) 
 αναζητούμε το ελάχιστο της συνάρτησης με αρχικό σημείο το (-5,5).
 Στο σχήμα \ref{fig:stepeest_plots} βλέπουμε τα αποτελέσματα για $\gamma = 0.1$, $\gamma = 1$, $\gamma = 2$, $\gamma = 10$.
@@ -9,7 +8,8 @@
 	\centering
 	\setlength\figureheight{\textwidth}
 	\setlength\figurewidth{\textwidth}
-%	\input{plots/algorithms/stepeest_plots}
+%	\input{plots/algorithms/stepeest_plots.tikz}
+	\includetikz{plots/algorithms/stepeest_plots}
 	\caption{Σύγκλιση της μεγίστης καθόδου για σταθερά γ}
 	\label{fig:stepeest_plots}
 \end{figure}
@@ -37,7 +37,7 @@
 \hfill \break
 \noindent Έτσι, αντικαθιστώντας για τις διάφορες τιμές του $\gamma$ έχουμε:
 \begin{enumerate}[i)]
-	\item $\gamma = 0.1 \Rightarrow x_{k + 1} = 0.9 \cdot x_k$
+	\item $\gamma = 0.1 \implies x_{k + 1} = 0.9 \cdot x_k$
 	
 	Οπότε, αν έχουμε ένα αρχικό σημείο $x_1$ η ακολουθία $x_k$ έχει ως εξής:
 	\begin{itemize}
@@ -48,43 +48,65 @@
 		\item $x_k = 0.9^{k-1} \cdot x_1$
 	\end{itemize}
 	
-	Παρατηρούμε ότι $\parallel x_{k+1} \parallel < \parallel x_{k} \parallel \forall k \in \mathbb{N}$ και ότι η ακολουθία συγκλίνει προς το (0,0) για $k \to +\infty$.
+	Παρατηρούμε ότι $\norm{x_{k+1}} < \norm{x_{k}} \forall k \in \mathbb{N}$ και ότι η ακολουθία συγκλίνει προς το (0,0) για $k \to +\infty$.
 	
 	Ισχύει
 	\begin{equation}
-		(x_1, x_2) = \frac{1}{2} \cdot (x_1^2 + x_2^2) = \frac{1}{2} \cdot \parallel (x_1, x_2) \parallel
-	\end{equation} άρα	$\parallel x_{k+1} \parallel < \parallel x_{k} \parallel \Rightarrow f(x_{k+1}) < f(x_k)$.
+		(x_1, x_2) = \frac{1}{2} \cdot (x_1^2 + x_2^2) = \frac{1}{2} \cdot \norm{(x_1, x_2)}
+	\end{equation} άρα	$\norm{x_{k+1}} < \norm{x_{k}} \implies f(x_{k+1}) < f(x_k)$.
 	
 	Ακόμα, έχουμε 
 	\begin{equation}
-		\parallel \nabla f(x_k) \parallel = \parallel x_k \parallel = 0.9^{k-1} \cdot \parallel x_1 \parallel
+		\norm{\nabla f(x_k)} = \norm{x_k} = 0.9^{k-1} \cdot \norm{x_1}
 	\end{equation}
 	και θέλουμε 
 	\begin{equation}
 		\label{eq:while_termination}
-		\parallel \nabla f(x_k) \parallel < \epsilon
+		\norm{\nabla f(x_k)} < \epsilon
 	\end{equation}
 	
-	Λύνουμε την εξίσωση \[ 0.9^{k-1} \cdot \parallel x_1 \parallel = \epsilon \] 
+	Λύνουμε την εξίσωση \[ 0.9^{k-1} \cdot \norm{x_1} = \epsilon \] 
 	παίρνοντας λογαρίθμους και στις 2 μεριές: 
 	\begin{align*}
-		 (k - 1) \cdot \ln 0.9 &= ln(\frac{\epsilon}{\parallel x_1 \parallel}) \Rightarrow \\
-		 k &= \frac{\ln \epsilon - \ln \parallel x_1 \parallel}{\ln 0.9} + 1
+		 (k - 1) \cdot \ln 0.9 &= ln(\frac{\epsilon}{\norm{x_1}}) \implies \\
+		 k &= \frac{\ln \epsilon - \ln  \norm{x_1}}{\ln 0.9} + 1
 	\end{align*}
 	Τελικά, αντικαθιστώντας για $\epsilon = 0.01$ και $x_1 = (-5, 5)$ παίρνουμε $k = 63.27$
 	
-	Αφού $\parallel \nabla f(x_{k+1}) \parallel < \parallel \nabla f(x_k) \parallel$ η σχέση \ref{eq:while_termination} ικανοποιείται για $k = \left \lceil{63.27}\right \rceil$
+	Αφού $\norm{\nabla f(x_{k+1})} < \norm{\nabla f(x_k)}$ η σχέση \ref{eq:while_termination} ικανοποιείται για $k = \left \lceil{63.27}\right \rceil$
 	δηλαδή σε 64 βήματα το οποίο επαληθεύει τα αποτελέσματα από την εκτέλεση του κώδικα που βρήκαμε πριν.
 	
-	\item $\gamma = 1 \Rightarrow x_{k+1} = 0$
+	\item $\gamma = 1 \implies x_{k+1} = (0,0)$
 	
 	Οπότε, άσχετα με την επιλογή του $x_1$ θα έχουμε $x_2 = 0$ το οποίο επαληθεύει και τα αποτελέσματα από το Matlab.
 	
- 	\item $\gamma = 2 \Rightarrow x_{k+1} = -x_{k}$
+	Για να διερευνήσουμε παραπάνω τον λόγο που συμβαίνει αυτό, παραθέτουμε το εξής χωρίο από την σελίδα 123 του βιβλίου:
+	\begin{quote}
+		Η μόνη περίπτωση ο αλγόριθμος της μεγίστης καθόδου να μας οδηγήσει στο ελάχιστο $x^*$ σ' ένα βήμα, είναι όταν το διάνυσμα που συνδέει το $x_k$ με το $x^*$ είναι συγγραμικό με το $\nabla f(x_k)$. Αυτό βέβαια οφείλεται στη χρήση της υπορουτίνας που ελαχιστοποιεί την $f(x_k - \gamma_k \cdot \nabla f(x_k)))$ ως προς το $\gamma_k$ \ldots
+	\end{quote}
+	
+	Επειδή $x_k - x^* = x_k - (0,0) = x_k = \nabla f(x_k)$ το διάνυσμα που συνδέει το $x_k$ με το $x^*$ είναι συγγραμικό με το $\nabla f(x_k)$.\\
+	
+	Επίσης,
+	\begin{gather*}
+		f(x_k - \gamma_k \cdot \nabla f(x_k))) =\\
+		f(x_k - \gamma_k \cdot x_k)	=\\
+		f((1-\gamma_k) \cdot x_k) =\\
+		\frac{1}{2} \cdot (1 - \gamma_k)^2 \cdot x_1^2 + \frac{1}{2} \cdot (1 - \gamma_k)^2 \cdot x_2^2 =\\
+		(1 - \gamma)^2 \cdot f(x_k)
+	\end{gather*}
+	η οποία ελαχιστοποιείται πάντα για $\gamma = 1$ άσχετα με το σημείο $x_k$.
+
+	Άρα, για οποιαδήποτε επιλογή σημείου $x_1$ θα ισχύει 
+	\[\argmin f(x_k - \gamma_k \cdot \nabla f(x_k))) = 1 = \gamma\]
+	και
+	\[x^* \parallel \nabla f(x_k)\]
+	
+ 	\item $\gamma = 2 \implies x_{k+1} = -x_{k}$
  	
  	Έτσι, $x_{k+2}=-x_{k+1}=x_{k}$. 
  	Αυτό εξηγεί την συμπεριφορά του αλγορίθμου δηλαδή την "ταλάντωση" μεταξύ του αρχικού σημείου και του συμμετρικού του ως προς (0,0).
- 	\item $\gamma = 10  \Rightarrow x_{k+1} = -9 \cdot x_k$
+ 	\item $\gamma = 10  \implies x_{k+1} = -9 \cdot x_k$
  		
 	Οπότε, αν έχουμε ένα αρχικό σημείο $x_1$ η ακολουθία $x_k$ έχει ως εξής:
 	\begin{itemize}
@@ -94,7 +116,7 @@
 		\item \ldots
 		\item $x_k = (-9)^{k-1} \cdot x_1$
 	\end{itemize}
-	Παρατηρούμε ότι $\parallel x_{k+1} \parallel > \parallel x_{k} \parallel \forall k \in \mathbb{N}$ και ότι η ακολουθία αποκλίνει από το (0,0) για $k \to +\infty$.
+	Παρατηρούμε ότι $\norm{x_{k+1}} > \norm{x_{k}} \forall k \in \mathbb{N}$ και ότι η ακολουθία αποκλίνει από το (0,0) για $k \to +\infty$.
 	
 	Αντικαθιστώντας για $\epsilon = 0.01$ και $x_1 = (-5, 5)$:
 	\begin{itemize}
@@ -103,5 +125,15 @@
 		\item $x_4 = (3645, -3645)$
 		\item ...
 	\end{itemize}
-	Έτσι εξηγείται η συμπεριφορά του αλγορίθμου και για αυτή τη τιμή του $\gamma$
+	Έτσι, εξηγείται η συμπεριφορά του αλγορίθμου και για αυτή τη τιμή του $\gamma$.
 \end{enumerate}
+
+\hfill \break
+\hfill \break
+Γενικά, για να συγκλίνει ο αλγόριθμος θα πρέπει να ισχύει:
+\begin{gather*}
+	\norm{x_{k+1}} < \norm{x_k} \implies\\
+	\norm{(1 - \gamma) \cdot x_k} < \norm{x_k} \xLongrightarrow{x_k \neq (0,0)}\\
+	\abs{1 - \gamma} < 1 \implies\\
+	0 < \gamma < 2
+\end{gather*}
