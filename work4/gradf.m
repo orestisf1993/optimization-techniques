@@ -1,7 +1,6 @@
-function [ z ] = gradf(x, y)
+function [z] = gradf(x, y)
 
 z = [x;y];
-
 
 end
 

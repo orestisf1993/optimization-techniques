@@ -23,6 +23,7 @@ addParameter(p, 'max_k', default_max_k, is_positive_number);
 addParameter(p,'start_x', default_x, is_point);
 addParameter(p,'a', default_a, is_point);
 addParameter(p,'b', default_b, is_point);
+addParameter(p, 'norm_terminate', false, @islogical);
 
 % parse inputs and evaluate values. Initialize variables
 parse(p, varargin{:});
@@ -33,24 +34,39 @@ x = p.Results.start_x;
 a = p.Results.a;
 b = p.Results.b;
 max_k = p.Results.max_k;
+norm_terminate = p.Results.norm_terminate;
 
 k = 1;
 
 % main loop
 while true
     g = gradf(x(1, k) ,x(2, k));
-%     if norm(g) < e
-%         break
-%     end
-    selected(:, k) = x(:, k) - s * g;
-    xbar(:, k) = a .* (selected(:,k) <= a) + b .* (selected(:, k) >= b) + selected(:, k) .* (a < selected(:, k) ) .* (selected(:, k) < b);
-    d = (xbar(:, k) - x(:, k));  
     
-    if norm(x(:, k) - xbar(:, k)) < e
-        break
+    % terminate by comparing the norm(gradf) with e.
+    if norm_terminate
+        if norm(g) < e
+            return
+        end
     end
     
+    % the point that will be projected
+    selected(:, k) = x(:, k) - s * g;
+    % calculating xbar
+    xbar(:, k) = ...
+        a .* (selected(:,k) <= a) + ...  % smaller than low bound
+        b .* (selected(:, k) >= b) + ... % greater than uper bound
+        selected(:, k) .* (a < selected(:, k) ) .* (selected(:, k) < b); % inside bounds
+    d = (xbar(:, k) - x(:, k));
+    % calculating the next point
     x(:, k + 1) = x(:, k) + gamma * d;
+    
+    % terminate by comparing the norm of x_{k+1} - xbar_k with e
+    if ~norm_terminate
+        if norm(x(:, k+1) - xbar(:, k)) < e
+            return
+        end
+    end    
+    
     k = k + 1;
     if (k > max_k) 
         break; 
