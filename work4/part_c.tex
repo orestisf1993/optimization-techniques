@@ -1,1 +1,46 @@
-\chapter{Ερώτημα (γ)}
+\subsection{Ερώτημα (γ)}
+
+Χρησιμοποιούμε τα ορίσματα $s_k = 20$, $\gamma_k = 0.3$, $\epsilon = 0.02$ και αρχικό σημείο το $(-5,7)$.
+Οι σχέσεις \ref{eq:x1-final} και \ref{eq:x2-final} γίνονται:
+\begin{align}
+	\label{eq:x1-finalc}
+	x_{1_{k+1}} =		
+		\begin{cases}
+			0.7 \cdot x_{1_{k}} - 6, &$ αν $ x_{1_{k}} \geq \frac{20}{19} \\
+			-5 \cdot x_{1_{k}}, &$ αν $ -\frac{10}{19} < x_{1_{k}} < \frac{20}{19}\\
+			0.7 \cdot x_{1_{k}} + 3 \cdot, &$ αν $ x_{1_{k}} \leq -\frac{10}{19}
+		\end{cases}
+\end{align}
+και
+\begin{align}
+	\label{eq:x2-finalc}
+	x_{2_{k+1}} = 	
+		\begin{cases}
+			0.7 \cdot x_{2_{k}} - 3.6, &$ αν $ x_{2_{k}} \geq \frac{12}{19} \\
+			-5 \cdot x_{2_{k}}, &$ αν $ -\frac{15}{19} < x_{2_{k}} < \frac{12}{19} \\
+			0.7 \cdot x_{2_{k}} + 4.5 \cdot, &$ αν $ x_{2_{k}} \leq -\frac{15}{19}
+		\end{cases}
+\end{align}
+
+Παρατηρούμε ότι άν το $-19 \cdot x_k \in X$ τότε $x_{k+1} = -5 \cdot x_k$. 
+Aν $-19 \cdot x_k \in X$ δεν ισχύει αναγκαστικά $-19 \cdot x_{k+1} \in X$. 
+Τα $s$ και $\gamma$ δεν ικανοποιούν την σχέση \ref{eq:s-gamma-requirements} και για αυτόν τον λόγο δεν περιμένουμε να συγκλίνει. Όποτε το $\overbar{x_k}$ προβάλλεται μέσα στο $X$, το $x_{k+1}$ θα είναι πιο μακριά από την αρχή τον αξόνων σε σχέση με το $x_k$.
+
+Πράγματι, όταν εκτελούμε τον αλγόριθμο αυτός δεν τερματίζεται πριν βρεθεί το ελάχιστο αλλά αφού φτάσουμε στον μέγιστο αριθμό βημάτων.
+
+Σε σχέση με το (a,i) ο αλγόριθμος δεν συγκλίνει εξαιτίας των λόγων που περιγράψαμε.
+
+Στην περίπτωση (a,iv) ο αλγόριθμος δεν συγκλίνει και απειρίζεται. Στην περίπτωση (γ) ο αλγόριθμος δεν συγκλίνει αλλά δεν απειρίζεται. Αυτό εξηγείται επειδή το $\overbar{x_k}$ μπορεί να πάρει περιορισμένες τιμές. Αυτό φαίνεται και στο γράφημα \ref{fig:c_xbar}
+
+\begin{figure}[htbp]
+	\centerfloat
+	\includegraphics{plots/algorithms/plot_c.eps}
+	\caption{Σύγκλιση της μεγίστης καθόδου με προβολή για $s_k = 20$, $\gamma_k = 0.3$, $\epsilon = 0.02$, για τα πρώτα 100 βήματα}
+%	\label{fig:untitled}
+\end{figure}
+\begin{figure}[htbp]
+	\centerfloat
+	\includegraphics{plots/algorithms/plot_c_bar.eps}
+	\caption{Τιμές του $\overbar{x_k}$ της μεγίστης καθόδου με προβολή για $s_k = 20$, $\gamma_k = 0.3$, $\epsilon = 0.02$, για τα πρώτα 100 βήματα}
+	\label{fig:c_xbar}
+\end{figure}
