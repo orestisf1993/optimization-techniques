@@ -1,8 +1,10 @@
 %&preamble
+
+%% end of static part. Save at preamble.tex and use command: xelatex -ini -shell-escape -job-name="preamble" "&xelatex preamble.tex\dump"
+%% dynamic part or stuff that can't be in the precompiled file
 \usetikzlibrary{external}
 \tikzset{external/system call={xelatex -fmt=preamble.fmt \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
 \tikzexternalize
-
 %delete external pdf if old
 \newcommand{\deloldext}[2]{%  
    \immediate\write18{./deloldext.pl '#1' '#2'}
@@ -14,9 +16,6 @@
     \input{#1.tikz}%
 }
 
-%% end of static part. Save at preamble.tex and use command: xelatex -ini -shell-escape -job-name="preamble" "&xelatex preamble.tex\dump"
-%% dynamic part
-
 % Only for xelatex and lualatex. It provides an automatic and unified interface to feature-rich AAT and OpenType fonts.
 % https://ctan.org/pkg/fontspec
 \usepackage{fontspec}
@@ -26,6 +25,9 @@
 \renewcommand{\listfigurename}{Λίστα Σχημάτων}
 % Change the name of each figure
 \renewcommand{\figurename}{Σχήμα}
+\renewcommand{\lstlistingname}{Καταχώρηση}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{List of \lstlistingname s}
+
 
 % defines a variable
 %\def \variableName {Something that's better to use as a variable}
@@ -40,8 +42,10 @@
   Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}
 \date{22/05/2015}
 
-%\includeonly{part_b}
-
+\includeonly{projection_intro, part_b, part_d} % delete for release version
+\newcommand{\fakealign}{%
+   \mbox{\hspace{5cm}} & \mbox{\hspace{5cm}} \nonumber\\%
+}
 % Quickly check the document. To produce pages, comment it out
 %\usepackage{syntonly}
 %\syntaxonly
@@ -65,6 +69,7 @@
 
 \include{intro}
 \include{part_a}
+\include{projection_intro}
 \include{part_b}
 \include{part_c}
 \include{part_d}

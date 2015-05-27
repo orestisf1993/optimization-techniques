@@ -1,17 +1,53 @@
-\chapter{Ερώτημα (β)}
+\subsection{Ερώτημα (β)}
 
 
-Τρέχουμε τον αλγόριθμο με ορίσματα $s_k = 15$, $\gamma_k = 0.1$, $\epsilon = 0.01$ και αρχικό σημείο το (8,3).
+Χρησιμοποιούμε τα ορίσματα $s_k = 15$, $\gamma_k = 0.1$, $\epsilon = 0.01$ και αρχικό σημείο το $(8,3)$.
+Οι σχέσεις \ref{eq:x1-final} και \ref{eq:x2-final} γίνονται:
+\begin{align}
+	\label{eq:x1-finalb}
+	x_{1_{k+1}} =		
+		\begin{cases}
+			0.9 \cdot x_{1_{k}} - 2, &$ αν $ x_{1_{k}} \geq \frac{10}{7} \\
+			-0.5 \cdot x_{1_{k}}, &$ αν $ -\frac{5}{7} < x_{1_{k}} < \frac{10}{7}\\
+			0.9 \cdot x_{1_{k}} + 1 \cdot, &$ αν $ x_{1_{k}} \leq -\frac{5}{7}
+		\end{cases}
+\end{align}
+και
+\begin{align}
+	\label{eq:x2-finalb}
+	x_{2_{k+1}} = 	
+		\begin{cases}
+			0.9 \cdot x_{2_{k}} - 1.2, &$ αν $ x_{2_{k}} \geq \frac{6}{7} \\
+			-0.5 \cdot x_{2_{k}}, &$ αν $ -\frac{15}{14} < x_{2_{k}} < \frac{6}{7} \\
+			0.9 \cdot x_{2_{k}} + 1.5 \cdot, &$ αν $ x_{2_{k}} \leq -\frac{15}{14}
+		\end{cases}
+\end{align}
 
-\begin{figure}[htp]
+Παρατηρούμε ότι άν το $-14 \cdot x_k \in X$ τότε $x_{k+1} = -0.5 \cdot x_k$. 
+Για τους συγκεκριμένους περιορισμούς για οποιοδήποτε $x_k \in X$ ισχύει $-0.5 \cdot x_k \in X$ άρα αν $-14 \cdot x_k \in X$ τότε $-14 \cdot x_{k+1} \in X$. 
+Έτσι, αν για κάποιο $k$ έχουμε $x_k \in X$ τότε $\forall k' > k$ θα ισχύει $x_{k'} \in X$.
+
+Τα $s$ και $\gamma$ ικανοποιούν την σχέση \ref{eq:s-gamma-requirements}.
+Όταν εκτελούμε τον αλγόριθμο τερματίζεται για $k = 15$ (για αρχικό σημείο $x_1$) βρίσκοντας επιτυχώς το ελάχιστο.
+Οι 3 πρώτες προβολές δεν ανήκουν μέσα στο $X$ και για αυτό επιλέγονται οριακές συντεταγμένες.
+
+Σε σχέση με το (a,i) ο αλγόριθμος συγκλίνει γρηγορότερα καθώς σε κάθε βήμα το $x_k$ μειώνεται με μεγαλύτερο ρυθμό.
+Δηλαδή, στο (a,i) είχαμε $x_{k+1} = 0.9 \cdot x_k$ ενώ εδώ έχουμε $x_{k+1} = 0.5 \cdot x_k$ (όταν η προβολή είναι μέσα στο $X$).
+
+Στο (a,iv) είδαμε τον λόγο που ο αλγόριθμος χωρίς προβολή δεν συγκλίνει προς το ελάχιστο. Στην περίπτωση με την προβολή συγκλίνει καθώς ικανοποιείται η συνθήκη \ref{eq:s-gamma-requirements}.
+
+\begin{figure}[htbp]
 	\centerfloat
-	\setlength\figureheight{10cm}
-	\setlength\figurewidth{10cm}
-%	\includetikz{plots/algorithms/tex}
-%	\includetikz{stupidarrows}
-%	\includegraphics{plots/algorithms/tex.eps}
-	\includegraphics{surfz.eps}
-%	\input{plots/algorithms/tex.tex}
-%	\caption{Σύγκλιση της μεγίστης καθόδου με προβολή για σταθερά γ}
-	\label{fig:untitled}
+	\includegraphics{plots/algorithms/plot_b.eps}
+	\caption{Σύγκλιση της μεγίστης καθόδου με προβολή για $s_k = 15$, $\gamma_k = 0.1$, $\epsilon = 0.01$}
+%	\label{fig:untitled}
 \end{figure}
+
+%\begin{figure}[htp]
+%	\centerfloat
+%	\setlength\figureheight{\textwidth}
+%	\setlength\figurewidth{\textwidth}
+%	\includetikz{plots/algorithms/plot_b}
+%	\caption{Σύγκλιση της μεγίστης καθόδου με προβολή για 2 }
+%%	\label{fig:untitled}
+%\end{figure}
