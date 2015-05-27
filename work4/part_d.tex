@@ -1,1 +1,79 @@
-\chapter{Ερώτημα (δ)}
+\subsection{Ερώτημα (δ)}
+
+
+Χρησιμοποιούμε τα ορίσματα $s_k = 0.1$, $\gamma_k = 0.01$, $\epsilon = 0.01$ και αρχικό σημείο το $(11,3)$.
+Οι σχέσεις \ref{eq:x1-final} και \ref{eq:x2-final} γίνονται:
+\begin{align}
+	\label{eq:x1-finald}
+	x_{1_{k+1}} =		
+		\begin{cases}
+			0.99 \cdot x_{1_{k}} - 0.2, &$ αν $ x_{1_{k}} \leq -\frac{200}{9} \\
+			0.999 \cdot x_{1_{k}}, &$ αν $ -\frac{200}{9} < x_{1_{k}} < \frac{100}{9}\\
+			0.99 \cdot x_{1_{k}} + 0.1, &$ αν $ x_{1_{k}} \geq \frac{100}{9}
+		\end{cases}
+\end{align}
+και
+\begin{align}
+	\label{eq:x2-finald}
+	x_{2_{k+1}} = 	
+		\begin{cases}
+			0.99 \cdot x_{2_{k}} - 0.12, &$ αν $ x_{2_{k}} \leq -\frac{40}{3} \\
+			0.999 \cdot x_{2_{k}}, &$ αν $ -\frac{40}{3} < x_{2_{k}} < \frac{50}{3} \\
+			0.99 \cdot x_{2_{k}} + 0.15, &$ αν $ x_{2_{k}} \geq \frac{50}{3}
+		\end{cases}
+\end{align}
+
+Παρατηρούμε ότι άν το $0.9 \cdot x_k \in X$ τότε $x_{k+1} = 0.999 \cdot x_k$. 
+Άρα αν $0.9 \cdot x_k \in X$ τότε $0.9 \cdot x_{k+1} \in X$. 
+Έτσι, αν για κάποιο $k$ έχουμε $x_k \in X$ τότε $\forall k' > k$ θα ισχύει $x_{k'} \in X$.
+Τα $s$ και $\gamma$ ικανοποιούν την σχέση \ref{eq:s-gamma-requirements}
+
+Μάλιστα, για το αρχικό σημείο $x_1 = (11,3)$ ισχύει $\overbar{x_1} = \Pr\{0.9 \cdot x_1\}$. Όμως $0.9 \cdot x_1 = (9.9, 2.7) \in X$ και άρα $\overbar{x_1} = 0.999 \cdot x_k = (10.989, 2.997)$.
+Δηλαδή, θα ισχύει $\overbar{x_k} = 0.999 \cdot x_k \forall k$.
+Έτσι, εκ των προτέρων, μπορούμε να καταλάβουμε ότι ο αλγόριθμος θα συγκλίνει και να υπολογίσουμε τον αριθμό των βημάτων.
+
+Έχουμε
+\begin{gather}
+	x_{k+1} = (1 - \gamma) \cdot x_k + \gamma \cdot (1-s) \cdot x_k =\nonumber\\
+	x_k \cdot (1 - s \cdot \gamma)
+\end{gather}
+
+\begin{varwidth}{\textwidth}
+Οπότε, για αρχικό σημείο $x_1$ η ακολουθία $\{x_k\}$ έχει ως εξής:
+\begin{itemize}
+	\item $x_2 = (1 - s \cdot \gamma) \cdot x_1$
+	\item $x_3 = (1 - s \cdot \gamma) \cdot x_2 = (1 - s \cdot \gamma)^2 \cdot x_1$
+	\item $x_4 = (1 - s \cdot \gamma) \cdot x_3 = (1 - s \cdot \gamma)^3 \cdot x_1$
+	\item \ldots
+	\item $x_k = (1 - s \cdot \gamma)^{k-1} \cdot x_1$
+\end{itemize}
+\end{varwidth}
+\hfill \break
+\hfill \break
+
+Ισχύει
+\begin{gather*}
+	\norm{x_{k+1} - \overbar{x_k}} = \\
+	\norm{(1-\gamma) \cdot x_k + \gamma \cdot \overbar{x_k} - \overbar{x_k}} = \\
+	\norm{ (1-\gamma) \cdot x_k + (\gamma - 1) \cdot \overbar{x_k} } = \\
+	\norm{ (1-\gamma) - (1 - \gamma) \cdot (1 -s) \cdot x_k} = \\
+	\norm{ s \cdot (1-\gamma) \cdot x_k } = \\
+	\abs{s \cdot (1-\gamma) \cdot (1 - s \cdot \gamma)^{k-1}} \cdot \norm{x_1} 
+\end{gather*}
+
+Από την συνθήκη τερματισμού \ref{eq:termination-condition} και αντικαθιστώντας τις τιμές για $\epsilon$, $\gamma$, $s$:
+\begin{gather*}
+	\abs{s \cdot (1-\gamma) \cdot (1 - s \cdot \gamma)^{k-1}} \cdot \norm{x_1} = \epsilon \implies\\
+	(1 - s \cdot \gamma) ^ {k - 1} = \frac{\epsilon}{s \cdot \abs{1-\gamma} \cdot \norm{x_1}} \implies\\
+	k = \frac{\ln{\frac{\epsilon}{s \cdot \abs{1-\gamma} \cdot \norm{x_1}}}}{\ln{\abs{1 - s \cdot \gamma}}} + 1 \implies\\
+	k =  4725.938 \implies\\
+	k = 4726
+\end{gather*}
+
+Αν εκτελέσουμε τον αλγόριθμο επιβεβαιώνονται αυτά τα αποτελέσματα αφού ο αυτός τερματίζει για $k = 4726$. Αυτή η ταχύτητα σύγκλισης είναι σχετικά αργή και για να την βελτιώσουμε θα πρέπει να αυξήσουμε τις τιμές του $\gamma$ και $s$ οι οποίες όμως πρέπει να τηρούν την σχέση \ref{eq:s-gamma-requirements}.
+
+\begin{figure}[htbp]
+	\centerfloat
+	\includegraphics{plots/algorithms/plot_d.eps}
+	\caption{Σύγκλιση της μεγίστης καθόδου με προβολή για $s_k = 0.1$, $\gamma_k = 0.01$, $\epsilon = 0.01$}
+\end{figure}

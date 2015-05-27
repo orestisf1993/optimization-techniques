@@ -1,0 +1,153 @@
+\chapter{Μέθοδος της μέγιστης καθόδου με προβολή}
+
+\section{Θεωρητική ανάλυση}
+
+Θεωρούμε τους περιορισμούς \[-20 \leq x_1 \leq 10\] και \[-12 \leq x_2 \leq 15\] και θα χρησιμοποιήσουμε τον αλγόριθμο της μέγιστης καθόδου με προβολή για να βρούμε το ελάχιστο. 
+
+Η ακολουθία των σημείων $x_k$ αυτής της μεθόδου δίνεται από την σχέση 
+\begin{equation}
+	\label{eq:x-original}
+	x_{k+1} = x_k + \gamma_k \cdot (\overbar{x_k} - x_k) 
+\end{equation}
+ή
+\begin{equation}
+	\label{eq:x-original2}
+	x_{k+1} = (1-\gamma) \cdot x_k + \gamma \cdot \overbar{x_k}
+\end{equation}
+όπου
+\begin{equation}
+	\label{eq:xbar-original} 
+	\overbar{x_k} = \Pr\{x_k - s_k \cdot \nabla f(x_k)\} 
+\end{equation}
+Αντικαθιστώντας την κλίση \ref{eq:f-nabla} στην \ref{eq:xbar-original} παίρνουμε:
+\begin{equation*}
+	\overbar{x_k} = \Pr\{x_k - s \cdot x_k\}
+\end{equation*}
+και τελικά
+\begin{equation}
+	\overbar{x_k} = \Pr\{(1-s) \cdot x_k\}
+\end{equation}
+
+Στο πρόβλημά μας οι περιορισμοί εκφράζονται από φράγματα στις μεταβλητές της $f(x)$. Το σύνολο των εφικτών σημείων, 
+\[X = \{(x_1, x_2) \in \mathbb{R}^n: -20 \leq x_1 \leq 10, -12 \leq x_2 \leq 15 \}\]
+είναι κυρτό και η προβολή για κάθε σημείο $x_k = (x_1, x_2)$ δίνεται από την σχέση στη σελίδα 202 του βιβλίου:
+\begin{align}
+	\label{eq:pr1-in-X}
+	[\Pr_X\{x_1\}]_1 =		
+		\begin{cases}
+			-20, &$ αν $ x_1 \leq -20 \\
+			x_1, &$ αν $ -20 < x_1 < 10 \\
+			10, &$ αν $ x_1 \geq 10
+		\end{cases}
+\end{align}
+
+\begin{align}
+	\label{eq:pr2-in-X}
+	[\Pr_X\{x_2\}]_2 =		
+		\begin{cases}
+			-12, &$ αν $ x_2 \leq -12 \\
+			x_2, &$ αν $ -12 < x_2 < 15 \\
+			15, &$ αν $ x_2 \geq 15
+		\end{cases}
+\end{align}
+
+Αντικαθιστώντας στις σχέσεις \ref{eq:pr1-in-X} και \ref{eq:pr2-in-X} για το σημείο $(1-s) \cdot x_k$ έχουμε:
+\begin{align}
+	\label{eq:pr1-in-X-replaced}
+	[\Pr_X\{(1-s) \cdot x_1 \}]_1 =		
+		\begin{cases}
+			-20, &$ αν $ (1-s) \cdot x_1 \leq -20 \\
+			(1-s) \cdot x_1, &$ αν $ -20 < (1-s) \cdot x_1 < 10 \\
+			10, &$ αν $ (1-s) \cdot x_1 \geq 10
+		\end{cases}
+\end{align}
+\begin{align}
+	\label{eq:pr2-in-X-replaced}
+	[\Pr_X\{(1-s) \cdot x_2\}]_2 =		
+		\begin{cases}
+			-12, &$ αν $ (1-s) \cdot x_2 \leq -12 \\
+			(1-s) \cdot x_2, &$ αν $ -12 < (1-s) \cdot x_2 < 15 \\
+			15, &$ αν $ (1-s) \cdot x_2 \geq 15
+		\end{cases}
+\end{align}
+
+Παρατηρούμε ότι για $s = 1$ έχουμε $\overbar{x_k} = \Pr\{(1-s) \cdot x_k\} = \Pr\{(0,0)\} = (0,0)$, δηλαδή η μέθοδος είναι ίδια με την μέθοδο της μεγίστης καθόδου χωρίς προβολή.
+
+Αντικαθιστώντας την \ref{eq:pr1-in-X-replaced}, \ref{eq:pr2-in-X-replaced} και \ref{eq:xbar-original} στην \ref{eq:x-original2} παίρνουμε:
+\begin{align}
+	\label{eq:x1-final}
+	x_{1_{k+1}} =	(1-\gamma) \cdot x_{1_{k}} + 	
+		\begin{cases}
+			-20 \cdot \gamma, &$ αν $ (1-s) \cdot x_{1_{k}} \leq -20 \\
+			(1-s) \cdot \gamma \cdot x_{1_{k}}, &$ αν $ -20 < (1-s) \cdot x_{1_{k}} < 10 \\
+			10 \cdot \gamma, &$ αν $ (1-s) \cdot x_{1_{k}} \geq 10
+		\end{cases}
+\end{align}
+και
+\begin{align}
+	\label{eq:x2-final}
+	x_{2_{k+1}} =	(1-\gamma) \cdot x_{2_{k}} + 	
+		\begin{cases}
+			-12 \cdot \gamma, &$ αν $ (1-s) \cdot x_{2_{k}} \leq -12 \\
+			(1-s) \cdot \gamma \cdot x_{2_{k}}, &$ αν $ -12 < (1-s) \cdot x_{2_{k}} < 15 \\
+			15 \cdot \gamma, &$ αν $ (1-s) \cdot x_{2_{k}} \geq 15
+		\end{cases}
+\end{align}
+Αν πάρουμε τα $x_{1_k}, x_{2_k}$ ώστε να ικανοποιούν τους περιορισμούς ισχύει
+\[x_{k+1} = (1 - s \cdot \gamma) \cdot x_{k} \]
+είναι προφανές ότι για να έχουμε και πάλι σύγκλιση προς το ελάχιστο αφού βρεθούμε σε κάποιο εφικτό σημείο $x_k$ θέλουμε να ισχύει
+\[\abs{1 - s \cdot \gamma} < 1 \]
+δηλαδή
+\begin{equation} 
+\label{eq:s-gamma-requirements}
+0 < s \cdot \gamma < 2
+ \end{equation}
+
+\section{Προγραμματιστική υλοποίηση}
+
+Ο αλγόριθμος υλοποιείται στο αρχείο \hyperref{steepest/projection_algorithm.m}{categoryname}{labelname}{projection\_algorithm.m}. Δίνεται το βήμα της κυρίως επανάληψης:
+
+
+\begin{lstlisting}[language=Matlab, escapechar=|, caption=Κυρίως βήμα στην υλοποίηση της μεθόδου μεγίστης καθόδου με προβολή]
+% main loop
+while true
+    g = gradf(x(1, k) ,x(2, k));
+    
+    % terminate by comparing the norm(gradf) with e.
+    if norm_terminate
+        if norm(g) < e	| \label{line:norm-termination} |
+            break
+        end
+    end
+    
+    % the point that will be projected
+    selected(:, k) = x(:, k) - s * g;
+    % calculating xbar
+    xbar(:, k) = ...
+        a .* (selected(:,k) <= a) + ...  % smaller than low bound
+        b .* (selected(:, k) >= b) + ... % greater than uper bound
+        selected(:, k) .* (a < selected(:, k) ) .* (selected(:, k) < b); % inside bounds
+    d = (xbar(:, k) - x(:, k));
+    % calculating the next point
+    x(:, k + 1) = x(:, k) + gamma * d;
+    
+    % terminate by comparing the norm of x_{k+1} - xbar_k with e
+    if ~norm_terminate
+        if norm(x(:, k+1) - xbar(:, k)) < e | \label{line:xbar-termination} |
+            break
+        end
+    end    
+    
+    k = k + 1;
+    if (k > max_k) 
+        break; 
+    end
+end
+\end{lstlisting}
+
+Για τον τερματισμό του αλγορίθμου δίνονται δύο επιλογές: τερματισμός με τον έλεγχο του μεγέθους της νόρμας $\nabla f(x_k) < \epsilon$ (γραμμή \ref{line:norm-termination}) και με τον έλεγχο που δίνεται στην σελίδα 201 του βιβλίου (γραμμή \ref{line:xbar-termination}). Στην δεύτερη περίπτωση ο αλγόριθμος τερματίζεται όταν:
+\begin{equation}
+\label{eq:termination-condition}
+\norm{x_{k+1} - \overbar{x_k}} < \epsilon
+\end{equation}
+Εκτός και αν αναφέρεται κάτι άλλο θα χρησιμοποιούμε τον δεύτερο τρόπο τερματισμού.

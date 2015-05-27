@@ -1,4 +1,4 @@
-\chapter{Ερώτημα (α)}
+\chapter{Μέθοδος της μεγίστης καθόδου χωρίς προβολή}
 
 Με την χρήση της μεθόδου της μεγίστης καθόδου με σταθερό βήμα $\gamma_k$ (υλοποίηση της προηγούμενης εργασίας) 
 αναζητούμε το ελάχιστο της συνάρτησης με αρχικό σημείο το (-5,5).
@@ -130,10 +130,23 @@
 
 \hfill \break
 \hfill \break
-Γενικά, για να συγκλίνει ο αλγόριθμος θα πρέπει να ισχύει:
+%Γενικά, για να συγκλίνει ο αλγόριθμος θα πρέπει να ισχύει:
+%\begin{gather*}
+%	\norm{x_{k+1}} < \norm{x_k} \implies\\
+%	\norm{(1 - \gamma) \cdot x_k} < \norm{x_k} \xLongrightarrow{x_k \neq (0,0)}\\
+%	\abs{1 - \gamma} < 1 \implies\\
+%	0 < \gamma < 2
+%\end{gather*}
+Γενικά, αφού ισχύει 
+\begin{equation*}
+	x_k = (1 - \gamma)^{k - 1} \cdot \norm{x_1}
+\end{equation*}
+και θέλουμε $x_k \to 0$ όταν $k \to \infty$ πρέπει:
 \begin{gather*}
-	\norm{x_{k+1}} < \norm{x_k} \implies\\
-	\norm{(1 - \gamma) \cdot x_k} < \norm{x_k} \xLongrightarrow{x_k \neq (0,0)}\\
-	\abs{1 - \gamma} < 1 \implies\\
+	\lim_{k \to \infty} x_k = 0 \implies\\
+	\lim_{k \to \infty} (1 - \gamma)^{k - 1} \cdot \norm{x_1} = 0 \xLongrightarrow{x_1 \neq (0,0)}\\
+	\lim_{k \to \infty} (1 - \gamma)^k = 0 \implies\\
+	\abs{1-\gamma} < 1 \implies\\
 	0 < \gamma < 2
 \end{gather*}
+για να συγκλίνει ο αλγόριθμος.
