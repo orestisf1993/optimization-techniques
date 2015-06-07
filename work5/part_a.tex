@@ -1,0 +1,143 @@
+% part_a
+\chapter{Θεωρητική λύση με χρήση του θεωρήματος Karush–Kuhn–Tucker} \label{part_a}
+
+\section{Συνάρτηση f}
+
+Για το πρόβλημα
+\begin{equation}
+	\label{eq:f-problem}
+	\min_{
+		\substack{3 \leq x_1 \leq 30 \\\\ -25 \leq x_2 \leq -5}
+		}
+	f(x_1, x_2)
+\end{equation}
+Οι περιορισμοί γράφονται ως εξής:
+\begin{align*}
+	g_{1_f} = 3 - x_1 &\leq 0\\
+	g_{2_f} = x_1 - 30 &\leq 0\\
+	g_{3_f} = -x_2 -25 &\leq 0\\
+	g_{4_f} = x_2 + 5 &\leq 0
+\end{align*}
+και οι κλίσεις τους υπολογίζονται ως:
+\begin{align*}
+	\nabla g_{1_f} =& 
+		\begin{bmatrix}
+			-1& 0
+		\end{bmatrix}^T\\
+	\nabla g_{2_f} =& 
+		\begin{bmatrix}
+			1& 0
+		\end{bmatrix}^T\\
+	\nabla g_{3_f} =& 
+		\begin{bmatrix}
+			0& -1
+		\end{bmatrix}^T\\
+	\nabla g_{4_f} =& 
+		\begin{bmatrix}
+			0& 1
+		\end{bmatrix}^T\\
+\end{align*}
+Τα κριτήρια του Karush-Kuhn-Tucker γράφονται ως εξής:
+\begin{enumerate}[i)]
+	\item $\lambda_1 \geq 0$, $\lambda_2 \geq 0$, $\lambda_3 \geq 0$, $\lambda_4 \geq 0$
+	\item \begin{align*}
+			\lambda_1 \cdot (x_1 - 3) = 0\\
+			\lambda_2 \cdot (x_1 - 30) = 0\\
+			\lambda_3 \cdot (x_2 + 25) = 0\\
+			\lambda_4 \cdot (x_2 + 5) = 0
+		\end{align*}
+	\item \begin{equation*}
+		\begin{bmatrix}
+			4 \cdot x_1 - 3 \cdot x_2\\
+			-3 \cdot x_1 + 4 \cdot x_2
+		\end{bmatrix} + 
+		\begin{bmatrix}
+			-\lambda_1\\
+			0
+		\end{bmatrix} +
+		\begin{bmatrix}
+			\lambda_2\\
+			0
+		\end{bmatrix} +
+		\begin{bmatrix}
+			0\\
+			-\lambda_3
+		\end{bmatrix} +		
+		\begin{bmatrix}
+			0\\
+			\lambda_4
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			0\\
+			0
+		\end{bmatrix}
+	\end{equation*}
+\end{enumerate}
+Λύνοντας τα παραπάνω συστήματα παίρνουμε τις λύσεις
+\begin{equation}
+	(x_1^*, x_2^*) = (3, -5)
+\end{equation}
+με διάνυσμα πολλαπλασιαστών Lagrange:
+\begin{equation*}
+	(\lambda_1^*, \lambda_2^*, \lambda_3^*, \lambda_4^*) = (27, 0, 0, 29)
+\end{equation*}
+
+\newpage
+\section{Συνάρτηση g}
+
+Για το πρόβλημα
+\begin{equation}
+	\label{eq:g-problem}
+	\min_{
+		\substack{x_1 \leq -1 \\ x_2 \leq -1}
+		}
+	g(x_1, x_2)
+\end{equation}
+Οι περιορισμοί γράφονται ως εξής:
+\begin{align*}
+	g_{1_f} = x_1 + 1 &\leq 0\\
+	g_{2_f} = x_2 + 1 &\leq 0
+\end{align*}
+και οι κλίσεις τους υπολογίζονται ως:
+\begin{align*}
+	\nabla g_{1_f} =& 
+		\begin{bmatrix}
+			1& 0
+		\end{bmatrix}^T\\
+	\nabla g_{2_f} =& 
+		\begin{bmatrix}
+			0& 1
+		\end{bmatrix}^T
+\end{align*}
+Τα κριτήρια του Karush-Kuhn-Tucker γράφονται ως εξής:
+\begin{enumerate}[i)]
+	\item $\lambda_1 \geq 0$, $\lambda_2 \geq 0$
+	\item \begin{align*}
+			\lambda_1 \cdot (x_1 + 1) = 0\\
+			\lambda_2 \cdot (x_2 + 1) = 0
+		\end{align*}
+	\item \begin{equation*}
+		\begin{bmatrix}
+			2 \cdot x_1 - 2 \cdot x_2\\
+			-2 \cdot x_1 + 2 \cdot x_2
+		\end{bmatrix} + 
+		\begin{bmatrix}
+			\lambda_1\\
+			0
+		\end{bmatrix} +
+		\begin{bmatrix}
+			0\\
+			\lambda_2
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			0\\
+			0
+		\end{bmatrix}
+	\end{equation*}
+\end{enumerate}
+
+Η λύση αυτού του συστήματος προκύπτει
+\begin{equation}
+	(x_1^*, x_2^*) = (t, t) \qquad t \leq -1
+\end{equation}
+Δηλαδή, το πρόβλημα \ref{eq:g-problem} δεν έχει μοναδική λύση καθώς η $g(x_1, x_2)$ δεν είναι γνησίως κυρτή.

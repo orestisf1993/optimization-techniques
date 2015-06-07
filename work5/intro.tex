@@ -1,0 +1,85 @@
+% Εισαγωγή
+\chapter{Εισαγωγή} \label{intro}
+
+Δίνονται οι συναρτήσεις για ελαχιστοποίηση:
+\begin{equation}
+	\label{eq:f-definition}
+	f:\mathbb{R}^{2} \mapsto \mathbb{R}, \qquad f(x_1, x_2) = x_1 \cdot x_2 + 2 \cdot (x_1 - x_2)^2
+\end{equation}
+με περιορισμούς
+\begin{align}
+	3 \leq x_1& \leq 30\\
+	-25 \leq x_2& \leq -50
+\end{align}
+και
+\begin{equation}
+	\label{eq:g-definition}
+	g:\mathbb{R}^{2} \mapsto \mathbb{R}, \qquad g(x_1, x_2) = (x_1 - x_2)^2
+\end{equation}
+με περιορισμούς
+\begin{align}
+	x_1& \leq -1\\
+	x_2& \leq -1
+\end{align}
+Υπολογίζονται οι κλίσεις τους:
+
+\begin{equation}
+\nabla f(x_1, x_2) = 
+\begin{bmatrix}
+	4 \cdot x_1 - 3 \cdot x_2\\
+	-3 \cdot x_1 + 4 \cdot x_2
+\end{bmatrix}
+\end{equation}
+και
+\begin{equation}
+\nabla g(x_1, x_2) = 
+\begin{bmatrix}
+	2 \cdot (x_1 - x_2)\\
+	-2 \cdot (x_1 - x_2)
+\end{bmatrix}
+\end{equation}
+Οι Εσσιανοί πίνακες υπολογίζονται ως:
+\begin{equation}
+\nabla^2 f(x_1, x_2) = 
+\begin{bmatrix}
+	4 & -3\\
+	-3 & 4
+\end{bmatrix}
+\end{equation} με ιδιοτιμές $\lambda_1 = 7$ και $\lambda_2 = 1$.
+\begin{equation}
+\nabla^2 f(x_1, x_2) = 
+\begin{bmatrix}
+	2 & -2\\
+	-2 & 2
+\end{bmatrix}
+\end{equation} με ιδιοτιμές $\lambda_1 = 4$ και $\lambda_2 = 0$.\\
+Παρατηρούμε ότι λόγω των Εσσιανών τους πινάκων οι $f$ και $g$ είναι κυρτές συναρτήσεις και τα αντίστοιχα προβλήματα είναι κυρτά και υπερ-αποτελούμενα.\\
+Παρουσιάζονται σχετικές γραφικές παραστάσεις.
+
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+
+\section{Συνάρτηση f}
+\begin{longtable}{cc}
+	\centering
+	\includegraphics[width=100mm]{plots/functions/f_mesh_plot.eps}&
+	\includegraphics[width=100mm]{plots/functions/f_mesh_plot_limited.eps}\\
+	\includegraphics[width=100mm]{plots/functions/f_contourf_plot.eps} &
+	\includegraphics[width=100mm]{plots/functions/f_contourf_plot_limited.eps}\\
+	\includegraphics[width=100mm]{plots/functions/gradf_mesh_plot.eps} &
+	\includegraphics[width=100mm]{plots/functions/gradf_mesh_plot_limited.eps}\\
+\end{longtable}
+
+\newpage
+\section{Συνάρτηση g}
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+\begin{longtable}{cc}
+	\centerfloat
+	\includegraphics[width=100mm]{plots/functions/g_mesh_plot.eps} &
+	\includegraphics[width=100mm]{plots/functions/g_mesh_plot_limited.eps}\\
+	\includegraphics[width=100mm]{plots/functions/g_contourf_plot.eps} &
+	\includegraphics[width=100mm]{plots/functions/g_contourf_plot_limited.eps}\\
+	\includegraphics[width=100mm]{plots/functions/gradg_mesh_plot.eps} &
+	\includegraphics[width=100mm]{plots/functions/gradg_mesh_plot_limited.eps}\\
+\end{longtable}
