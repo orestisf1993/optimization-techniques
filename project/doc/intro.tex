@@ -1,0 +1,38 @@
+% Εισαγωγή
+\chapter{Εισαγωγή} \label{ch:intro}
+
+Μελετάμε το σύστημα
+\begin{equation}
+	y = f(u_1, u_2)
+\end{equation}
+για του οποίου της μετρήσεις χρησιμοποιούμε την συνάρτηση
+\begin{equation}
+	f(u_1, u_2) = \sin{(u_1 + u_2)}\sin{(u_1^2)}
+	\label{eq:f}
+\end{equation}
+
+\begin{figure}[htbp]
+	\centerfloat	
+	\includegraphics{f}
+	\caption{Η συνάρτηση $f(u_1, u_2)$}
+	\label {fig:f_mesh_plot}
+\end{figure}
+
+Στόχος μας είναι μέσω του γραμμικού συνδυασμού γκαουσιανών συναρτήσεων (Gaussian functions) της μορφής
+\begin{equation}
+	G(u_1, u_2) = a \cdot e^{-[\frac{(u_1 - c_1)^2}{2\sigma_{1}^2} + \frac{(u_2 - c_2)^2}{2\sigma_{2}^2}]}
+\end{equation}
+να προσεγγίσουμε τις μετρήσεις που παίρνουμε από την σχέση \ref{eq:f}.
+
+\begin{figure}
+	\centerfloat	
+	\includegraphics[width=0.95\linewidth]{example_gaussian}
+	\caption{Παράδειγμα γκαουσιανής συνάρτησης}
+	\label {fig:example-gaussian}
+\end{figure}
+
+Για να το πετύχουμε αυτό χρησιμοποιούμε την συνάρτηση ga() του Matlab που βρίσκει το ελάχιστο μιας συνάρτησης χρησιμοποιώντας γενετικό αλγόριθμο. 
+Θα ελαχιστοποιήσουμε το άθροισμα τετραγώνων της διαφοράς μεταξύ των μετρήσεων και των τιμών της γκαουσιανής προσέγγισης.
+\begin{equation}
+	E = \sum_{i = 1}^{nPoints}(f(u_{1_i}, u_{2_i}) - \sum_{j = 1}^{nGaussian}G_j(u_{1_i}, u_{2_i}))^2
+\end{equation}

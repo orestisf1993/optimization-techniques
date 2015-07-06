@@ -1,0 +1,76 @@
+%&preamble
+% used for figures in multicol enviroment
+\usepackage{multicol}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+% https://www.ctan.org/pkg/tabu
+\usepackage{longtable}
+%% end of static part. Save at preamble.tex and use command:
+% xelatex -ini -shell-escape -job-name="preamble" "&xelatex preamble.tex\dump"
+%% dynamic part or stuff that can't be in the precompiled file
+%\usetikzlibrary{external}
+%\tikzset{external/system call={xelatex -fmt=preamble.fmt \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+%\tikzexternalize
+%delete external pdf if old
+%\newcommand{\deloldext}[2]{%  
+%   \immediate\write18{./deloldext.pl '#1' '#2'}
+%}
+%%include tikz file and call \deloldext
+%\newcommand{\includetikz}[1]{%
+%    \tikzsetnextfilename{#1}%
+%    \deloldext{#1.tikz}{#1.pdf}%
+%    \input{#1.tikz}%
+%}
+
+% Only for xelatex and lualatex. It provides an automatic and unified interface to feature-rich AAT and OpenType fonts.
+% https://ctan.org/pkg/fontspec
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+% Change the title of contents list and figure list
+\renewcommand{\contentsname}{Περιεχόμενα}
+\renewcommand{\listfigurename}{Λίστα Σχημάτων}
+% Change the name of each figure
+\renewcommand{\figurename}{Σχήμα}
+\renewcommand{\lstlistingname}{Καταχώρηση}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{List of \lstlistingname s}
+
+
+% defines a variable
+%\def \variableName {Something that's better to use as a variable}
+
+% \\ or \newline == newline, no paragraph
+% \\* == no page break
+
+\title{Τεχνικές Βελτιστοποίησης\\Project}
+\author{Ορέστης Φλώρος-Μαλιβίτσης\\
+  Τομέας Ηλεκτρονικής,\\
+  Τμήμα Ηλ. Μηχανικών / Μηχανικών ΗΥ,\\
+  Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}
+\date{05/07/2015}
+%\includeonly{measurements} % delete for release version
+
+\begin{document}
+\maketitle
+\tableofcontents
+%\listoffigures
+\newpage
+
+% Δομή του Project
+\chapter*{Δομή του Project} \label{project-structure}
+
+\begin{description}
+	\item[Floros\_orestis\_Project\_7796.pdf] Αυτή η αναφορά.
+	\item[thema.pdf] Η εκφώνηση του project.
+	\item[error\_sum.m] Άθροισμα τετραγώνων των error.
+	\item[f.m] Η συνάρτηση που δίνεται.
+	\item[gaussianSum.m] Άθροισμα γκαουσιανών συναρτήσεων.
+	\item[run\_all.m] Εκτέλεση των γενετικών.
+\end{description}
+
+\include{intro}
+\include{matlab}
+\include{measurements}
+
+\end{document}
